@@ -637,5 +637,51 @@ export default class ProviderPicker extends LightningElement {
     $A.enqueueAction(action);
 } })
 </code></pre></details></section><section id="zrodla"><div class="section-heading"><span class="section-num">07</span><h2>Materiały i ślad weryfikacji</h2></div><ul><li>Dokument źródłowy: <em>IIS7.SE.9 Komponentowe podejście do wytwarzania aplikacji</em>, mgr inż. Maciej Miłosz, Lublin 2022; Lab 1, s. 4–27; Lab 2, s. 28–39; Lab 3, s. 41–52; Lab 4, s. 53–59. Strona 40 jest pusta.</li><li><a href="https://developer.salesforce.com/docs/platform/salesforce-cli/guide/cli-reference.html">Salesforce CLI Command Reference</a></li><li><a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_triggers.htm">Apex Triggers</a> i <a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_triggers_bestpract.htm">dobre praktyki wyzwalaczy</a></li><li><a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_testing_intro.htm">Apex Testing</a></li><li><a href="https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_gov_limits.htm">Apex Governor Limits</a> i <a href="https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/">SOQL / SOSL Reference</a></li><li><a href="https://developer.salesforce.com/docs/platform/lwc/guide/">LWC Developer Guide</a></li><li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_flow.htm">Flow Metadata API</a></li><li><a href="https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/platform_events_intro.htm">Platform Events</a></li></ul><p class="lead">Repozytorium zawiera źródła w <code>force-app/</code>, skrypty w <code>scripts/</code> i zwięzłe wyniki w <code>validation/</code>. Nazwy prób wymieniane w erracie odpowiadają wpisom w zbiorczym <code>validation/probes.json</code>. Nie publikujemy surowych logów, danych sesji ani identyfikatorów orgu. Oryginalny PDF z instrukcją nie jest częścią repozytorium.</p></section><footer>Opracowano i zweryfikowano 17.10.2026 UTC · aktualizacja po Lab 3–4 · Zakres kończy się na Lab 4 · Samodzielny dokument HTML bez zewnętrznych bibliotek i fontów.</footer></main><script>
-(()=>{const search=document.querySelector('#search'),cards=[...document.querySelectorAll('.erratum')],buttons=[...document.querySelectorAll('[data-filter]')];let category='Wszystkie';const normalize=s=>s.toLocaleLowerCase('pl').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ł/g,'l');function filter(){const q=normalize(search.value.trim());let count=0;for(const card of cards){const show=(category==='Wszystkie'||card.dataset.cat===category)&&normalize(card.textContent).includes(q);card.hidden=!show;if(show)count++;}document.querySelector('#count').textContent=count+' / '+cards.length+' pozycji';document.querySelector('#empty').hidden=count>0;}search.addEventListener('input',filter);for(const button of buttons)button.addEventListener('click',()=>{category=button.dataset.filter;for(const other of buttons)other.setAttribute('aria-pressed',String(other===button));filter();});let opened=[];window.addEventListener('beforeprint',()=>{opened=[...document.querySelectorAll('details')].filter(x=>!x.open);opened.forEach(x=>x.open=true);});window.addEventListener('afterprint',()=>opened.forEach(x=>x.open=false));})();
+(() => {
+  const search = document.querySelector('#search');
+  const issues = document.querySelector('#issues');
+  const toolbar = document.querySelector('.toolbar');
+  const cards = [...document.querySelectorAll('.erratum')];
+  const buttons = [...document.querySelectorAll('[data-filter]')];
+  let category = 'Wszystkie';
+  const normalize = s => s.toLocaleLowerCase('pl').normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '').replace(/ł/g, 'l');
+
+  function filter({ resetScroll = false } = {}) {
+    const q = normalize(search.value.trim());
+    let count = 0;
+    for (const card of cards) {
+      const show = (category === 'Wszystkie' || card.dataset.cat === category)
+        && normalize(card.textContent).includes(q);
+      card.hidden = !show;
+      if (show) count++;
+    }
+    document.querySelector('#count').textContent = count + ' / ' + cards.length + ' pozycji';
+    document.querySelector('#empty').hidden = count > 0;
+    if (resetScroll) {
+      // A shorter list can leave the viewport in a later section. Show its start
+      // below the sticky toolbar immediately, overriding CSS smooth scrolling.
+      window.scrollTo({
+        top: window.scrollY + issues.getBoundingClientRect().top
+          - toolbar.getBoundingClientRect().height - 24,
+        behavior: 'instant'
+      });
+    }
+  }
+
+  search.addEventListener('input', () => filter());
+  for (const button of buttons) button.addEventListener('click', () => {
+    category = button.dataset.filter;
+    for (const other of buttons) {
+      other.setAttribute('aria-pressed', String(other === button));
+    }
+    filter({ resetScroll: true });
+  });
+  let opened = [];
+  window.addEventListener('beforeprint', () => {
+    opened = [...document.querySelectorAll('details')].filter(x => !x.open);
+    opened.forEach(x => x.open = true);
+  });
+  window.addEventListener('afterprint', () => opened.forEach(x => x.open = false));
+})();
 </script></body></html>

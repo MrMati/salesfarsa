@@ -1,0 +1,19 @@
+<aura:component controller="InvoiceLabController" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">
+    <aura:attribute name="total" type="Decimal" default="0"/>
+    <aura:attribute name="error" type="String"/>
+    <aura:attribute name="loading" type="Boolean" default="true"/>
+    <aura:handler name="init" value="{!this}" action="{!c.load}"/>
+    <aura:handler event="force:refreshView" action="{!c.load}"/>
+    <lightning:card title="Wszystkie faktury nieruchomości" iconName="standard:orders">
+        <div class="slds-p-around_medium">
+            <aura:if isTrue="{!v.loading}"><lightning:spinner alternativeText="Obliczanie sumy" size="small"/>
+                <aura:set attribute="else">
+                    <aura:if isTrue="{!not(empty(v.error))}"><p role="alert" class="slds-text-color_error">{!v.error}</p>
+                        <aura:set attribute="else"><p>Suma brutto wszystkich faktur (niezależnie od statusu)</p><lightning:formattedNumber value="{!v.total}" style="currency" currencyCode="{!$Locale.currencyCode}"/></aura:set>
+                    </aura:if>
+                </aura:set>
+            </aura:if>
+            <lightning:button label="Odśwież sumę" onclick="{!c.load}" class="slds-m-top_small"/>
+        </div>
+    </lightning:card>
+</aura:component>

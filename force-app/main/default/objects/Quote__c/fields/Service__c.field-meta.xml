@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Usługa</label>
+    <referenceTo>Service__c</referenceTo>
+    <relationshipLabel>Usługa</relationshipLabel>
+    <relationshipName>Service_Quotes</relationshipName>
+    <type>Lookup</type>
+</CustomField>

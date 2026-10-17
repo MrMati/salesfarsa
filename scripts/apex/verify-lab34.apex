@@ -1,0 +1,12 @@
+Service__c service=[SELECT Id FROM Service__c WHERE Service_Code__c='LAB34_CLEAN' LIMIT 1];
+Property__c property=[SELECT Id,Total_Cost__c FROM Property__c WHERE Address__c LIKE '[LAB3-4]%' LIMIT 1];
+Invoice__c reserved=[SELECT Start__c,End__c FROM Invoice__c WHERE Reference__c='LAB34_RESERVATION' LIMIT 1];
+List<BookingEligibility.ProviderOption> available=InvoiceLabController.getAvailableProviders(service.Id,reserved.Start__c,reserved.End__c);
+Assert.areEqual(1,available.size());Assert.isTrue(available[0].label.contains('Beta'));
+Assert.areEqual(123,property.Total_Cost__c);
+Assert.areEqual(492,InvoiceLabController.getPropertyInvoiceTotal(property.Id));
+List<Invoice__c> fromScreen=[SELECT Amount__c,Tax__c,Tax_Amount__c,Gross_Amount__c,Country__c,Start__c,End__c,Provider__c,Status__c FROM Invoice__c WHERE Reference__c='LAB34_UI_ORDER'];
+Assert.areEqual(1,fromScreen.size());Invoice__c ui=fromScreen[0];Assert.areEqual(150,ui.Amount__c);Assert.areEqual(34.5,ui.Tax_Amount__c);Assert.areEqual(184.5,ui.Gross_Amount__c);Assert.areEqual(ui.Start__c.addHours(2),ui.End__c);Assert.areEqual('To_Pay',ui.Status__c);
+List<Invoice_Notification__c> logs=[SELECT Result__c FROM Invoice_Notification__c WHERE Invoice__r.Property__c=:property.Id];Assert.isTrue(logs.size()>=2);
+for(Invoice_Notification__c log:logs) Assert.areEqual('EmailDisabled',log.Result__c);
+System.debug('LAB34_VERIFIED: candidates=Beta; totalAll=492; totalPaid=123; screenInvoice=184.50; notifications='+logs.size());

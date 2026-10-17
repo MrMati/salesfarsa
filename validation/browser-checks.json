@@ -1,0 +1,24 @@
+{
+  "screen_flow_created_invoice": true,
+  "tax_field_visible_when_to_pay": true,
+  "tax_field_hidden_when_paid": true,
+  "aura_visible": true,
+  "property_details_loaded": true,
+  "readonly_admin_override": "Admin has EditReadonlyFields; layout Readonly and Dynamic Forms readonly are configured; server protects calculated tax.",
+  "final_screen_flow_roundtrip": {
+    "final_provider_api_contract": "passed",
+    "temporary_invoice_created": true,
+    "temporary_invoice_deleted": true
+  },
+  "report": {
+    "desktop": "1440x1080",
+    "mobile": "390x844",
+    "horizontal_overflow": false,
+    "entries": 43,
+    "filters": "pass",
+    "search_and_empty_state": "pass",
+    "source_expansion": "pass",
+    "javascript_errors": [],
+    "print_export": "pass"
+  }
+}

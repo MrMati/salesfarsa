@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>RecalculateProperty</name>
+        <label>RecalculateProperty</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>PropertyCostAction</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>propertyId</name>
+            <value>
+                <elementReference>$Record.Property__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>previousPropertyId</name>
+            <value>
+                <elementReference>$Record__Prior.Property__c</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>PropertyCostAction</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>67.0</apiVersion>
+    <description>Laboratoria 3–4. Lab 4.1 — suma opłaconych faktur</description>
+    <interviewLabel>Lab 4.1 — suma opłaconych faktur {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Lab 4.1 — suma opłaconych faktur</label>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>RecalculateProperty</targetReference>
+        </connector>
+        <filterFormula>AND(OR(NOT(ISBLANK({!$Record.Property__c})),NOT(ISBLANK({!$Record__Prior.Property__c}))),OR(ISNEW(),ISCHANGED({!$Record.Property__c}),ISCHANGED({!$Record.Status__c}),ISCHANGED({!$Record.Amount__c}),ISCHANGED({!$Record.Country__c})))</filterFormula>
+        <object>Invoice__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

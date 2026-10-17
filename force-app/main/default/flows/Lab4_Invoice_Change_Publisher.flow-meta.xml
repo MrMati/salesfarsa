@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <description>Laboratoria 3–4. Lab 4.3 — opublikuj zmianę faktury</description>
+    <formulas>
+        <name>EventSummary</name>
+        <dataType>String</dataType>
+        <expression>"Status: " &amp; TEXT({!$Record.Status__c}) &amp; "; netto: " &amp; TEXT({!$Record.Amount__c}) &amp; "; kraj: " &amp; TEXT({!$Record.Country__c})</expression>
+    </formulas>
+    <interviewLabel>Lab 4.3 — opublikuj zmianę faktury {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Lab 4.3 — opublikuj zmianę faktury</label>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>PublishChange</name>
+        <label>Opublikuj Platform Event</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>Invoice_Id__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Owner_Id__c</field>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Change_Key__c</field>
+            <value>
+                <elementReference>$Flow.InterviewGuid</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Summary__c</field>
+            <value>
+                <elementReference>EventSummary</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Invoice_Changed__e</object>
+    </recordCreates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>PublishChange</targetReference>
+        </connector>
+        <filterFormula>OR(ISCHANGED({!$Record.Amount__c}),ISCHANGED({!$Record.Country__c}),ISCHANGED({!$Record.Status__c}),ISCHANGED({!$Record.Provider__c}),ISCHANGED({!$Record.Start__c}),ISCHANGED({!$Record.End__c}),ISCHANGED({!$Record.Property__c}))</filterFormula>
+        <object>Invoice__c</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

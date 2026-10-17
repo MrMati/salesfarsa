@@ -1,0 +1,25 @@
+{
+  "scope": "Lab 1–4",
+  "errata_entries": 43,
+  "categories": {
+    "Aktualizacja": 4,
+    "Błąd": 13,
+    "Doprecyzowanie": 23,
+    "Sprawdzone": 3
+  },
+  "apex_methods_passed": 45,
+  "apex_setup_methods_extra": 2,
+  "lwc_tests_passed": 6,
+  "active_flows": 6,
+  "custom_objects": 12,
+  "platform_events": 1,
+  "custom_data_fields": 95,
+  "event_fields": 4,
+  "browser_flow_created_invoice": true,
+  "emails_sent_in_demonstration": 0,
+  "eslint_passed": true,
+  "final_provider_screen_roundtrip_passed": true,
+  "verified_at": "2026-10-17",
+  "source_api_version": "67.0",
+  "salesforce_cli_version": "2.154.4"
+}

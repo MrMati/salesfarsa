@@ -1,0 +1,279 @@
+{
+  "status": "Passed",
+  "test_methods": 45,
+  "failures": 0,
+  "tests": [
+    {
+      "class": "Lab2ExamplesTest",
+      "method": "propertyAndConstant",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab2ExamplesTest",
+      "method": "rangeHandlesPositiveNegativeAndSingle",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab2ExamplesTest",
+      "method": "rangeRejectsInvalidInput",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "allSkillsRequired",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "auraSumAndPaidTotalHaveDifferentMeaning",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "calculatedTaxCannotBeOverwrittenOnUpdate",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "duplicatePreviewRateIsRejected",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "inactiveOfferOrProviderNotEligible",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "invalidIntervalsBlocked",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "invalidRequestAndEmptyCollection",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "overlapAndAdjacentIntervals",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "paidTotalTracksDelete",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "paidTotalTracksStatusAmountAndPropertyMove",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "paidTotalsBulk200",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "previewMissingInvoiceRejected",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "quoteBulk200UsesBulkifiedAction",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "quoteFlowMatchesQualifiedCompany",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "quoteFlowUnmatchedThenReassignedOnNewInterval",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "sameBatchOverlapRejected",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "serviceDurationFormulaAndValidation",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "staleProviderChoiceRejected",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "taxSimulationDoesNotChangeInvoice",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab4NotificationTest",
+      "method": "directActionRecordsDisabledEmailAndDeduplicates",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab4NotificationTest",
+      "method": "malformedAndUnknownEventIgnored",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab4NotificationTest",
+      "method": "optedInActionRequestsEmailInTestOnly",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab4NotificationTest",
+      "method": "platformEventSubscriberExecutesFlow",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab4NotificationTest",
+      "method": "publisherRunsOnSignificantChange",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "bulkNegative200",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "bulkPositive200OneQuery",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "completedServiceRequiresDetails",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "directServiceAndFindRates",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "duplicateRateIsRejected",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "fixedRateAndRounding",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "fixedRateInvalidInput",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "invalidConfiguredRateValidation",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "lab1ModelAndRollup",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "mixedBatchAllOrNoneRollback",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "mixedBatchPartialSave",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "nullServiceInputs",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "singleNegativeAmount",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "singleNegativeMissingAmount",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "singleNegativeMissingCountry",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "singleNegativeMissingRate",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "singlePositiveAndFormula",
+      "result": "Pass"
+    },
+    {
+      "class": "TaxCalculationServiceTest",
+      "method": "zeroAndHalfUp",
+      "result": "Pass"
+    }
+  ],
+  "coverage": [
+    {
+      "component": "InvoiceTrigger",
+      "covered_lines": 6,
+      "total_lines": 6
+    },
+    {
+      "component": "BookingEligibility",
+      "covered_lines": 47,
+      "total_lines": 47
+    },
+    {
+      "component": "BookingGuard",
+      "covered_lines": 19,
+      "total_lines": 19
+    },
+    {
+      "component": "InvoiceLabController",
+      "covered_lines": 23,
+      "total_lines": 23
+    },
+    {
+      "component": "QuoteMatchAction",
+      "covered_lines": 11,
+      "total_lines": 11
+    },
+    {
+      "component": "PropertyCostAction",
+      "covered_lines": 17,
+      "total_lines": 17
+    },
+    {
+      "component": "InvoiceNotificationAction",
+      "covered_lines": 30,
+      "total_lines": 30
+    },
+    {
+      "component": "TaxCalculationService",
+      "covered_lines": 35,
+      "total_lines": 37
+    },
+    {
+      "component": "Lab2Examples",
+      "covered_lines": 11,
+      "total_lines": 11
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata"><fullName>Owner__c</fullName><label>Właściciel nieruchomości</label><referenceTo>Account</referenceTo><relationshipLabel>Właściciel nieruchomości</relationshipLabel><relationshipName>Properties</relationshipName><deleteConstraint>SetNull</deleteConstraint><type>Lookup</type></CustomField>

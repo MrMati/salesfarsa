@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Valid_Quote_Request</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(ISBLANK(Service__c), ISBLANK(Property__c), ISBLANK(Start__c), ISBLANK(End__c), End__c &lt;= Start__c)</errorConditionFormula>
+    <errorMessage>Quote requires a service, property and a valid time interval.</errorMessage>
+</ValidationRule>

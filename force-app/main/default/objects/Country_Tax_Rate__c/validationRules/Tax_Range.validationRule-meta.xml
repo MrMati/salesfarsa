@@ -1,0 +1,1 @@
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata"><fullName>Tax_Range</fullName><active>true</active><errorConditionFormula>OR(Tax__c &lt; 0, Tax__c &gt; 1)</errorConditionFormula><errorMessage>Tax rate must be between 0% and 100%.</errorMessage></ValidationRule>

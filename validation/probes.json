@@ -1,0 +1,50 @@
+{
+  "probe-figure-2-1.json": {
+    "success": false,
+    "compiled": false,
+    "compileProblem": "Identifier name is reserved: number",
+    "exceptionMessage": ""
+  },
+  "probe-extrema-null.json": {
+    "success": false,
+    "compiled": true,
+    "compileProblem": "",
+    "exceptionMessage": "System.NullPointerException: Attempt to de-reference a null object"
+  },
+  "probe-2-2.json": {
+    "success": true,
+    "compiled": true,
+    "compileProblem": "",
+    "exceptionMessage": ""
+  },
+  "probe-2-6.json": {
+    "success": false,
+    "compiled": false,
+    "compileProblem": "Illegal assignment from Decimal to Integer",
+    "exceptionMessage": ""
+  },
+  "probe-soql.json": {
+    "success": true,
+    "compiled": true,
+    "compileProblem": "",
+    "exceptionMessage": ""
+  },
+  "probe-empty-getter.json": {
+    "success": false,
+    "compiled": false,
+    "compileProblem": "Missing return statement required return type: String",
+    "exceptionMessage": ""
+  },
+  "probe-class-order-metadata.json": {
+    "status": "Failed",
+    "problems": [
+      "Expecting '{' but was: 'extends'",
+      "Exception class must extend another Exception class: ClassOrderProbeException",
+      "@Override specified for non-overriding method: String ClassOrderProbeException.getTypeName()"
+    ]
+  },
+  "probe-class-order-corrected.json": {
+    "status": "Succeeded",
+    "problems": []
+  }
+}

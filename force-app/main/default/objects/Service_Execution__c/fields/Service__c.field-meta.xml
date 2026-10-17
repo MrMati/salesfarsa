@@ -1,0 +1,1 @@
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata"><fullName>Service__c</fullName><label>Usługa</label><referenceTo>Service__c</referenceTo><relationshipLabel>Usługa</relationshipLabel><relationshipName>Service_Executions</relationshipName><deleteConstraint>SetNull</deleteConstraint><type>Lookup</type></CustomField>

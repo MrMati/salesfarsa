@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Positive_Duration</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(NOT(ISBLANK(Time_Required__c)), Time_Required__c &lt;= 0)</errorConditionFormula>
+    <errorMessage>Service duration in hours must be positive.</errorMessage>
+</ValidationRule>

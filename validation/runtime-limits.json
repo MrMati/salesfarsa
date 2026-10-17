@@ -1,0 +1,11 @@
+{
+  "context": "Execute Anonymous, API 68.0, observed 2026-10-17",
+  "limits": {
+    "SOQL": 100,
+    "SOSL": 20,
+    "query_rows": 50000,
+    "CPU_ms": 10000,
+    "heap_bytes": 10000000,
+    "DML_statements": 150
+  }
+}

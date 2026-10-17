@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Area__c</fullName>
+    <label>Obszar świadczenia usług</label>
+    <length>255</length>
+    <type>Text</type>
+</CustomField>

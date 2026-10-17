@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Dostępni wykonawcy" icon-name="standard:service_contract">
+        <div class="slds-p-around_medium">
+            <p class="slds-m-bottom_medium">Lista obejmuje aktywne firmy oferujące usługę, z kompletem wymaganych kwalifikacji i bez kolizji terminów. Wybór zostanie ponownie sprawdzony przy zapisie.</p>
+            <template lwc:if={loading}><lightning-spinner alternative-text="Sprawdzanie dostępności" size="small"></lightning-spinner></template>
+            <template lwc:elseif={error}><p role="alert" class="slds-text-color_error">{error}</p></template>
+            <template lwc:elseif={hasOptions}><lightning-combobox label="Firma wykonawcza" value={providerId} options={options} onchange={change} required></lightning-combobox></template>
+            <template lwc:else><p role="status">Brak dostępnych firm. Wróć i wybierz inny termin lub usługę.</p></template>
+            <lightning-button class="slds-m-top_medium" label="Odśwież dostępność" onclick={refresh} disabled={loading}></lightning-button>
+        </div>
+    </lightning-card>
+</template>

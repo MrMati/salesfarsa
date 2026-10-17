@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>RecalculateExcludingDeleted</name>
+        <label>RecalculateExcludingDeleted</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>PropertyCostAction</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>propertyId</name>
+            <value>
+                <elementReference>$Record.Property__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>excludingInvoiceId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>PropertyCostAction</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>67.0</apiVersion>
+    <description>Laboratoria 3–4. Lab 4.1 — usunięcie faktury i przeliczenie sumy</description>
+    <interviewLabel>Lab 4.1 — usunięcie faktury i przeliczenie sumy {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Lab 4.1 — usunięcie faktury i przeliczenie sumy</label>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>RecalculateExcludingDeleted</targetReference>
+        </connector>
+        <filterFormula>NOT(ISBLANK({!$Record.Property__c}))</filterFormula>
+        <object>Invoice__c</object>
+        <recordTriggerType>Delete</recordTriggerType>
+        <triggerType>RecordBeforeDelete</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

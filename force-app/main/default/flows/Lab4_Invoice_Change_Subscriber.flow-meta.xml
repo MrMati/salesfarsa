@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>NotifyOwner</name>
+        <label>NotifyOwner</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>InvoiceNotificationAction</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>invoiceId</name>
+            <value>
+                <elementReference>$Record.Invoice_Id__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>eventKey</name>
+            <value>
+                <elementReference>$Record.Change_Key__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>summary</name>
+            <value>
+                <elementReference>$Record.Summary__c</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>InvoiceNotificationAction</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>67.0</apiVersion>
+    <description>Laboratoria 3–4. Lab 4.3 — odbierz zdarzenie i powiadom właściciela</description>
+    <interviewLabel>Lab 4.3 — odbierz zdarzenie i powiadom właściciela {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Lab 4.3 — odbierz zdarzenie i powiadom właściciela</label>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>NotifyOwner</targetReference>
+        </connector>
+        <object>Invoice_Changed__e</object>
+        <triggerType>PlatformEvent</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

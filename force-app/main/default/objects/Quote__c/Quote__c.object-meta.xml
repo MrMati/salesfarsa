@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Laboratoria 3–4: usługi nieruchomości.</description>
+    <enableReports>true</enableReports>
+    <label>Zapytanie o usługę</label>
+    <nameField>
+        <displayFormat>QUO-{00000}</displayFormat>
+        <label>Numer</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Zapytania o usługę</pluralLabel>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

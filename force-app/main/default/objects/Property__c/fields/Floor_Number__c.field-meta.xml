@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Floor_Number__c</fullName>
+    <label>Piętro</label>
+    <precision>16</precision>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

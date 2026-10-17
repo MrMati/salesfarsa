@@ -1,0 +1,1 @@
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata"><fullName>Geolocation__c</fullName><label>Lokalizacja</label><displayLocationInDecimal>true</displayLocationInDecimal><scale>6</scale><type>Location</type></CustomField>

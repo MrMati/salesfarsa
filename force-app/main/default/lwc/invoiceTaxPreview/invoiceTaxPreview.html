@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="Podatek w wybranym kraju" icon-name="utility:world">
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+            <p class="slds-text-color_weak slds-m-bottom_medium">Symulacja dla kwoty netto tej faktury. Wybór kraju nie zmienia zapisanego rekordu.</p>
+            <template lwc:if={error}><p role="alert" class="slds-text-color_error">{error}</p></template>
+            <template lwc:elseif={loaded}>
+                <lightning-combobox label="Kraj wystawienia — symulacja" value={selectedCountry} options={options} onchange={changeCountry}></lightning-combobox>
+                <template lwc:if={hasRate}>
+                    <dl class="slds-list_horizontal slds-wrap slds-m-top_medium">
+                        <dt class="slds-item_label slds-truncate">Stawka</dt><dd class="slds-item_detail"><lightning-formatted-number value={rateFraction} format-style="percent" maximum-fraction-digits="2"></lightning-formatted-number></dd>
+                        <dt class="slds-item_label slds-truncate">Podatek</dt><dd class="slds-item_detail" data-testid="tax"><lightning-formatted-number value={tax} format-style="currency" currency-code={currency}></lightning-formatted-number></dd>
+                        <dt class="slds-item_label slds-truncate">Brutto</dt><dd class="slds-item_detail"><lightning-formatted-number value={gross} format-style="currency" currency-code={currency}></lightning-formatted-number></dd>
+                    </dl>
+                </template>
+                <template lwc:else><p role="status" class="slds-m-top_small">Wybierz kraj z dostępną stawką.</p></template>
+            </template>
+            <template lwc:else><lightning-spinner alternative-text="Wczytywanie stawek" size="small"></lightning-spinner></template>
+        </div>
+    </lightning-card>
+</template>

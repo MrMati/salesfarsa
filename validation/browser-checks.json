@@ -11,14 +11,43 @@
     "temporary_invoice_deleted": true
   },
   "report": {
-    "desktop": "1440x1080",
-    "mobile": "390x844",
-    "horizontal_overflow": false,
-    "entries": 43,
-    "filters": "pass",
-    "search_and_empty_state": "pass",
-    "source_expansion": "pass",
-    "javascript_errors": [],
-    "print_export": "pass"
+    "entries": 61,
+    "categoryCounts": {
+      "Błąd": 17,
+      "Doprecyzowanie": 35,
+      "Aktualizacja": 6,
+      "Sprawdzone": 3
+    },
+    "viewports": [
+      [
+        1440,
+        1080
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "horizontalOverflow": false,
+    "categoryScrollCorrection": "Passed (deep errors -> shorter updates list)",
+    "searchEmptyState": "Passed",
+    "anchorsAndEmbeddedImages": "Passed",
+    "javascriptErrors": [],
+    "pdfExport": "Passed"
+  },
+  "lab56": {
+    "home": true,
+    "nativeDashboardCharts": [
+      "Wykonania według statusu",
+      "Kwoty brutto według statusu",
+      "Średnia opłacona faktura"
+    ],
+    "dynamicDashboard": true,
+    "lwcRows": 11,
+    "lwcFirstGross": "123,00 PLN",
+    "noLwcAccessAlert": true,
+    "testedAs": "current administrator",
+    "actorCrudFlsTestedInApex": true,
+    "actorUiSessionsTested": false
   }
 }

@@ -1,0 +1,40 @@
+// Read-only checks of the durable dataset, followed by DML probes rolled back in full.
+Assert.areEqual(2000,[SELECT COUNT() FROM Account WHERE Lab_Key__c LIKE 'LAB56-ACCOUNT-%']);
+Assert.areEqual(10,[SELECT COUNT() FROM Property__c WHERE Address__c LIKE '[LAB5-6]%']);
+Assert.areEqual(10,[SELECT COUNT() FROM Service__c WHERE Service_Code__c LIKE 'LAB56-SERVICE-%']);
+Assert.areEqual(10,[SELECT COUNT() FROM Skill__c WHERE Code__c LIKE 'LAB56-SKILL-%']);
+Assert.areEqual(10,[SELECT COUNT() FROM Account_Service__c WHERE Service_Id__r.Service_Code__c LIKE 'LAB56-SERVICE-%']);
+Assert.areEqual(10,[SELECT COUNT() FROM Account_Skill__c WHERE Skill__r.Code__c LIKE 'LAB56-SKILL-%']);
+Assert.areEqual(10,[SELECT COUNT() FROM Service_Skill__c WHERE Skill__r.Code__c LIKE 'LAB56-SKILL-%']);
+Assert.areEqual(10,[SELECT COUNT() FROM Invoice__c WHERE Reference__c LIKE 'LAB56-INVOICE-%']);
+Assert.areEqual(10,[SELECT COUNT() FROM Payment__c WHERE Invoice_Id__r.Reference__c LIKE 'LAB56-INVOICE-%']);
+Assert.areEqual(10,[SELECT COUNT() FROM Service_Execution__c WHERE Invoice__r.Reference__c LIKE 'LAB56-INVOICE-%']);
+Assert.areEqual(10,[SELECT COUNT() FROM Quote__c WHERE Service__r.Service_Code__c LIKE 'LAB56-SERVICE-%']);
+Assert.isTrue([SELECT COUNT() FROM Country_Tax_Rate__c]>=10);
+Assert.isTrue([SELECT COUNT() FROM Invoice_Notification__c WHERE Invoice__r.Reference__c LIKE 'LAB56-INVOICE-%']>=10);
+Assert.areEqual(10,[SELECT COUNT() FROM Quote__c WHERE Service__r.Service_Code__c LIKE 'LAB56-SERVICE-%' AND Status__c='Assigned']);
+Assert.areEqual(1783.50,(Decimal)[SELECT SUM(Gross_Amount__c) total FROM Invoice__c WHERE Reference__c LIKE 'LAB56-INVOICE-%'][0].get('total'));
+Assert.areEqual(922.50,(Decimal)[SELECT SUM(Total_Cost__c) total FROM Property__c WHERE Address__c LIKE '[LAB5-6]%'][0].get('total'));
+Assert.areEqual(922.50,(Decimal)[SELECT SUM(Amount__c) total FROM Payment__c WHERE Invoice_Id__r.Reference__c LIKE 'LAB56-INVOICE-%'][0].get('total'));
+Integer scopedGroups=0;
+for(ServiceCostController.CostRow row:ServiceCostController.getCosts(null,null).rows) if(row.propertyName!=null && row.propertyName.startsWith('[LAB5-6]')) scopedGroups++;
+Assert.areEqual(10,scopedGroups);
+Savepoint sp=Database.setSavepoint();
+try {
+    Account example=new Account(Name='[LAB56-PROBE] CRUD',Lab_Key__c='LAB56-PROBE-CRUD');insert example;
+    Assert.areEqual(Account.SObjectType,example.Id.getSObjectType());
+    Assert.areEqual(18,String.valueOf(example.Id).length());
+    Id shortId=String.valueOf(example.Id).substring(0,15);Assert.areEqual(example.Id,shortId);
+    example.Name='[LAB56-PROBE] Update';update example;
+    Account external=new Account(Lab_Key__c='LAB56-PROBE-CRUD',Name='[LAB56-PROBE] Upsert');upsert external Lab_Key__c;
+    Assert.areEqual(example.Id,external.Id);
+    delete example;Assert.areEqual(1,[SELECT COUNT() FROM Account WHERE Id=:example.Id AND IsDeleted=true ALL ROWS]);
+    undelete example;Assert.areEqual(1,[SELECT COUNT() FROM Account WHERE Id=:example.Id]);
+    Account duplicate=new Account(Name='[LAB56-PROBE] Duplicate');insert duplicate;merge example duplicate;
+    Assert.areEqual(0,[SELECT COUNT() FROM Account WHERE Id=:duplicate.Id]);
+    List<Database.SaveResult> partial=Database.insert(new List<Invoice__c>{new Invoice__c(Amount__c=1,Country__c='PL'),new Invoice__c(Amount__c=-1,Country__c='PL')},false);
+    Assert.isTrue(partial[0].isSuccess());Assert.isFalse(partial[1].isSuccess());
+    List<Invoice__c> parents=[SELECT Property__r.Address__c,Provider__r.Name FROM Invoice__c WHERE Reference__c LIKE 'LAB56-INVOICE-%'];
+    Assert.areEqual(10,parents.size());Assert.isNotNull(parents[0].Provider__r.Name);
+    System.debug('LAB56 PASS: dataset counts, money, matched quotes, USER_MODE costs, ID15/18, CRUD/undelete/upsert/merge, partial DML, parent relations.');
+} finally { Database.rollback(sp); }

@@ -1,0 +1,25 @@
+<template>
+    <lightning-card title="Średni koszt wykonanej usługi" icon-name="utility:chart">
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+            <p class="slds-text-body_small slds-m-bottom_medium">Średnia kwota brutto faktur dla zakończonych wykonań, według nieruchomości, firmy i usługi. Faktury anulowane pominięto.</p>
+            <template lwc:if={loading}><lightning-spinner alternative-text="Ładowanie kosztów" size="small"></lightning-spinner></template>
+            <template lwc:if={error}><p role="alert">{error}</p></template>
+            <template lwc:if={ready}>
+                <template lwc:if={hasRows}>
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                            <caption class="slds-assistive-text">Koszty zakończonych wykonań usług</caption>
+                            <thead><tr><th scope="col">Nieruchomość</th><th scope="col">Firma</th><th scope="col">Usługa</th><th scope="col">Wykonania</th><th scope="col">Średnia brutto</th></tr></thead>
+                            <tbody><template for:each={rows} for:item="row"><tr key={row.key}>
+                                <th scope="row">{row.propertyName}</th><td>{row.providerName}</td><td>{row.serviceName}</td><td>{row.executions}</td>
+                                <td><lightning-formatted-number value={row.averageGross} format-style="currency" currency-code={currencyCode}></lightning-formatted-number></td>
+                            </tr></template></tbody>
+                        </table>
+                    </div>
+                </template>
+                <template lwc:else><p>Brak zakończonych wykonań z fakturą w dostępnym zakresie danych.</p></template>
+                <template lwc:if={truncated}><p class="slds-m-top_small" role="status">Pokazano pierwszych 200 grup. Zawęź dane na stronie nieruchomości.</p></template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

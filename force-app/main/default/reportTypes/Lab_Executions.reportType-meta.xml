@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Service_Execution__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Lab 6. Pola raportowe; dostęp do danych nadal zależy od CRUD, FLS i udostępniania.</description>
+    <label>Wykonania usług</label>
+    <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>Service_Execution__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
+            <table>Service_Execution__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Property__c</field>
+            <table>Service_Execution__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Provider__c</field>
+            <table>Service_Execution__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Service__c</field>
+            <table>Service_Execution__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Invoice__c</field>
+            <table>Service_Execution__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Status__c</field>
+            <table>Service_Execution__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Completed_At__c</field>
+            <table>Service_Execution__c</table>
+        </columns>
+        <masterLabel>Wykonania usług</masterLabel>
+    </sections>
+</ReportType>

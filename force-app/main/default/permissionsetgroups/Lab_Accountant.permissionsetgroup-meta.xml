@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Uprawnienia aktora: Księgowość</description>
+    <label>Lab — Księgowość</label>
+    <permissionSets>Lab_Catalog_Read</permissionSets>
+    <permissionSets>Lab_Reports</permissionSets>
+    <permissionSets>Lab_Finance</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

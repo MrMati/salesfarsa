@@ -19,6 +19,11 @@
     <description>Dostęp do modelu laboratoriów 1–2.</description>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.Lab_Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.Balance__c</field>
         <readable>true</readable>
     </fieldPermissions>

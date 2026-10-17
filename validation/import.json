@@ -1,0 +1,16 @@
+{
+  "tool": "Salesforce Data Loader 67.0.0 (official JAR, batch mode)",
+  "api": "Bulk API 2.0",
+  "operation": "upsert",
+  "externalId": "Lab_Key__c",
+  "firstRun": {
+    "success": 2000,
+    "created": 2000,
+    "errors": 0
+  },
+  "secondRun": {
+    "success": 2000,
+    "created": 0,
+    "errors": 0
+  }
+}

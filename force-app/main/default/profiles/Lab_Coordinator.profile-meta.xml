@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+    <custom>true</custom>
+    <description>Lab 5: Koordynator usług. Profil minimalny, procesy przyznaje Permission Set Group.</description>
+    <userLicense>Salesforce</userLicense>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>LightningExperienceUser</name>
+    </userPermissions>
+</Profile>

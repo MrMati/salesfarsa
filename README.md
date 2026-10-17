@@ -1,11 +1,11 @@
-# Salesfarsa — Salesforce, laboratoria 1–4
+# Salesfarsa — Salesforce, laboratoria 1–6
 
 Wykonane i zweryfikowane 17.10.2026 w połączonym Developer Edition.
 Materiał: Maciej Miłosz, „Komponentowe podejście do wytwarzania aplikacji”,
-Politechnika Lubelska, 2022. Kontynuacja tej samej aplikacji; Lab 5–8 nie realizowano.
+Politechnika Lubelska, 2022. Kontynuacja tej samej aplikacji; Lab 7–8 nie realizowano. Zadanie 6.3 wykonano w wariancie Home + LWC; CRM Analytics jest niedostępne.
 
-Pełna, skumulowana errata: [GitHub Pages](https://mrmati.github.io/salesfarsa/) lub [docs/index.html](docs/index.html) (43 pozycje).
-[PDF](docs/errata.pdf) pomija długi załącznik kodu. Źródła w HTML i w tym projekcie działają offline.
+Pełna, skumulowana errata: [GitHub Pages](https://mrmati.github.io/salesfarsa/) lub [docs/index.html](docs/index.html) (61 pozycji).
+[PDF](docs/errata.pdf) pomija długi załącznik kodu. HTML zawiera historyczny załącznik kodu Lab 1–4; kompletne bieżące źródła są w projekcie.
 Repozytorium nie zawiera katalogów logowania, cookies, session IDs ani tokenów.
 
 ## Układ repozytorium
@@ -24,9 +24,10 @@ Wymagane: Node.js oraz Salesforce CLI. W folderze tego projektu:
 git clone https://github.com/MrMati/salesfarsa.git
 cd salesfarsa
 sf org login web --instance-url https://login.salesforce.com --alias developer --set-default
+sf project deploy start --source-dir force-app/main/default/objects --source-dir force-app/main/default/classes --source-dir force-app/main/default/triggers --source-dir force-app/main/default/flows --source-dir force-app/main/default/lwc --source-dir force-app/main/default/aura --source-dir force-app/main/default/reportTypes --source-dir force-app/main/default/reports --source-dir force-app/main/default/dashboards --target-org developer --test-level NoTestRun --wait 10
 sf project deploy start --source-dir force-app --target-org developer --test-level NoTestRun --wait 10
 sf org assign permset --name Property_Services_Labs --target-org developer
-sf project deploy start --source-dir force-app --target-org developer --test-level RunSpecifiedTests --tests TaxCalculationServiceTest --tests Lab2ExamplesTest --tests Lab34Test --tests Lab4NotificationTest --wait 10
+sf project deploy start --source-dir force-app --target-org developer --test-level RunSpecifiedTests --tests TaxCalculationServiceTest --tests Lab2ExamplesTest --tests Lab34Test --tests Lab4NotificationTest --tests Lab56SecurityTest --tests ServiceCostControllerTest --wait 10
 sf apex run --file scripts/apex/seed-labs.apex --target-org developer
 sf apex run --file scripts/apex/seed-lab34.apex --target-org developer
 npm ci --ignore-scripts
@@ -34,7 +35,8 @@ npm run test:unit -- -- --runInBand
 npm run lint
 ```
 
-NoTestRun służy tu wyłącznie do wstępnego wdrożenia w Developer Edition i nadania
+Pierwszy etap tworzy model i raporty przed walidacją osadzonego dashboardu na Home.
+Drugi dodaje aplikację, Home, profile i grupy. NoTestRun służy tu wyłącznie do wstępnego wdrożenia w Developer Edition i nadania
 uprawnień do nowych pól. Końcowe wdrożenie wykonuje rzeczywiste testy.
 W chmurowej sesji dodawano `SFDX_DISABLE_DNS_CHECK=true` przed komendami sf,
 ponieważ lokalny test DNS CLI nie obsługiwał proxy. HTTPS i weryfikacja TLS
@@ -111,13 +113,12 @@ który nie dostarcza wiadomości. EmailSent oznacza przyjęcie żądania, nie do
 
 ## Weryfikacja
 
-- Metadata API: 45 metod testowych, 0 błędów. Asynchroniczny raport ma 47 pozycji,
-  ponieważ liczy dodatkowo dwie metody @TestSetup.
-- 6 testów LWC, 2 pakiety, wszystkie PASS; ESLint bez błędów.
+- Metadata API: 54 metody testowe, 0 błędów. Asynchroniczny raport może doliczać metody @TestSetup; liczbę właściwych testów podaje Metadata API.
+- 9 testów LWC, 3 pakiety, wszystkie PASS; ESLint bez błędów.
 - Końcowy kontrakt wejść/wyjść providerPicker ponownie sprawdzono w przeglądarce;
   tymczasową fakturę utworzono i usunięto po potwierdzeniu.
-- 199/201 pokrytych linii (~99%). Wszystkie nowe usługi Lab 3–4 i trigger mają 100%;
-  TaxCalculationService 35/37 (defensywny fragment chroniony walidacją).
+- Pokrycie kodu i lista 54 metod z końcowego wdrożenia: `validation/apex-tests.json`.
+  Testy obejmują również CRUD/FLS trzech aktorów, średnie kosztów oraz bulk undelete.
 - Bulk: 200 faktur, 200 faktur do sumy Paid i 200 zapytań Quote.
 - Zalogowana przeglądarka Salesforce: cały Screen Flow do zapisu, LWC DE, Aura,
   Tax__c widoczne dla To_Pay i ukryte przy Paid.
@@ -130,12 +131,93 @@ Błędne skrypty w scripts/apex/errata odtwarzają przykłady PDF; nie są wdra�
 
 Stawki są edukacyjne, bez dat obowiązywania i kategorii podatkowych. Quote nie konwertuje
 się automatycznie na Invoice i nie reaguje sam na późniejszą rezerwację innego użytkownika.
-Nie dodano przeliczenia sumy po undelete, harmonogramu wielu ekip ani automatycznego salda
+After undelete ponownie sprawdza rezerwację i przelicza sumę Paid. Nie dodano harmonogramu wielu ekip ani automatycznego salda
 Account. Minimum_Notice_Hours__c i Cancellation_Notice_Hours__c są polami informacyjnymi.
 
 Interfejs sprawdzono w przeglądarce desktopowej; erratę osobno na telefonowej szerokości.
 Nie testowano natywnej aplikacji Salesforce Mobile ani wielowątkowego obciążenia blokad.
-Nie wykonywano audytu wielu profili. Udostępnianie danych i role są zakresem Lab 5–7.
+Lab 5 sprawdza CRUD/FLS trzech profili z grupami przez System.runAs + USER_MODE. Nie wykonywano trzech osobnych sesji UI. OWD i hierarchia ról pozostają zakresem Lab 7.
+
+
+## Laboratoria 5–6
+
+Trzej aktorzy mają osobne minimalne profile i grupy o nazwach `Lab_Coordinator`,
+`Lab_Accountant`, `Lab_Analyst`. Nie przypisuj im pełnego `Property_Services_Labs`:
+uprawnienia sumują się, więc zepsułoby to ograniczenia sprawdzane w Lab 5.
+
+| Aktor | Uprawnienia procesu | Celowo bez dostępu |
+| --- | --- | --- |
+| Koordynator usług | Katalog, nieruchomości, zamówienia, faktury, Quote, wykonania | Payment, finansowe pola Account |
+| Księgowość | Odczyt wykonania, rozliczenia, płatności, finansowe pola Account | Instrukcje wejścia do budynku, edycja wykonania |
+| Analityk kosztów | Odczyt nieruchomości, faktur i wykonań, raporty | Zapis, płatności, prywatne notatki i kontakt z faktur |
+
+Grupy składają się z `Lab_Catalog_Read`, `Lab_Reports` i odpowiednio
+`Lab_Operations`, `Lab_Finance` lub `Lab_Analytics_Read`. Testy tworzą własnych
+użytkowników na tych profilach i przypisują grupy, a następnie sprawdzają dozwolone
+zapisy oraz odmowę operacji i odczytu pól. Minimalny profil bez grupy nie ma dostępu.
+Org ma dwie licencje Salesforce, jedną zajmuje administrator. Nie zostawiono trzech
+stałych aktywnych użytkowników; testowy `runAs` pomija limit licencji.
+
+Po wdrożeniu i wykonaniu wcześniejszych seedów:
+
+1. W oficjalnym [Data Loaderze](https://github.com/forcedotcom/dataloader/releases/tag/v67.0.0)
+   wybierz **Upsert → Account → Lab_Key__c**, wczytaj
+   `scripts/data/accounts-2000.csv` i mapowanie `scripts/data/accounts.sdl`.
+   Zaloguj się własnym OAuth. Konfigurację sesji i pliki wynikowe trzymaj poza repo.
+2. Uruchom `sf apex run --file scripts/apex/seed-lab56.apex --target-org developer`.
+3. Po przetworzeniu zdarzeń uruchom
+   `sf apex run --file scripts/apex/verify-lab56.apex --target-org developer`.
+
+W tej sesji wykonano oficjalny Data Loader 67.0.0 w trybie batch na Java 21,
+przez Bulk API 2.0. Pierwszy przebieg: 2000 utworzonych, 0 błędów. Powtórka:
+2000 aktualizacji, 0 nowych, 0 błędów. Klucz zewnętrzny zapobiega duplikowaniu.
+Plik CSV jest syntetyczny, bez prawdziwych adresów e-mail.
+
+Seed dodaje po 10 nieruchomości, usług, kwalifikacji, ofert, powiązań kwalifikacji,
+faktur, płatności, wykonań i zapytań. Zachowuje wcześniejsze 15 stawek krajów.
+Dla Platform Event publikuje 10 testowych zdarzeń; subscriber zapisuje ślady
+EmailDisabled. Nie są to ręcznie wpisane logi symulujące odbiór. Wysłanie e-maili
+pozostaje wyłączone. Kompletna powtórka seeda nie dubluje danych; częściowo usunięty
+zestaw wymaga przeglądu i nie jest automatycznie naprawiany.
+
+Kwoty kontrolne zestawu `[LAB5-6]`: faktury 1783,50 brutto, Paid 922,50,
+płatności 922,50. `verify-lab56.apex` sprawdza też relacje, Id15/18, insert/update,
+upsert według External ID, delete/undelete, merge Account i częściowy sukces DML.
+Wszystkie rekordy tymczasowych prób są wycofywane przez rollback.
+
+## Raporty i strona główna
+
+W aplikacji **Usługi nieruchomości — Lab** otwórz **Home**. Na stronie znajduje się
+natywny dashboard i LWC **Średni koszt wykonanej usługi**. Zakładki Reports/Dashboards
+prowadzą do folderu **Laboratoria — usługi nieruchomości**.
+
+| Raport | Pytanie i miara |
+| --- | --- |
+| Realizacja usług — koordynator | Liczba wykonań według statusu |
+| Należności i rozliczenia — księgowość | Suma brutto faktur według statusu, terminy w szczegółach |
+| Średnia faktura opłacona — analityk | AVG brutto faktury Paid, według firmy |
+| Opłacone koszty według miasta | Suma Property.Total_Cost__c, według miasta |
+
+Cztery raporty Summary używają trzech Custom Report Types: `Lab_Invoices`,
+`Lab_Executions`, `Lab_Properties`. Mają zakres wszystkich dat i widocznych danych.
+Dynamiczny `Lab_Overview` działa jako **LoggedInUser**, bez stałego konta administratora
+jako running user. Trzy wykresy wybierają agregaty ze źródłowych raportów. Raporty i
+LWC respektują CRUD/FLS; publiczny wewnętrzny folder daje dostęp do definicji,
+nie do ukrytych pól. Nie zmieniano OWD ani hierarchii ról z Lab 7.
+
+LWC liczy średnią brutto faktury **na zakończone wykonanie**, grupując nieruchomość,
+firmę i usługę. Wyklucza wykonania bez faktury i faktury Cancelled, pokazuje liczebność
+próby. To odrębna miara od średniej opłaconej faktury. Komponent wspiera Home, App Page
+oraz stronę rekordu Property; na rekordzie filtruje po bieżącej nieruchomości.
+Zapytania używają USER_MODE, a po przekroczeniu 200 grup wyświetlana jest informacja
+o ograniczeniu. Dane pieniężne są w jednej walucie orga; nie jest to konwersja walut.
+
+**Ograniczenie zadania 6.3:** dokumentacja w PDF dotyczy CRM Analytics. Ten org ma
+0 licencji Analytics Cloud Builder/Explorer i Wave API zwraca
+`FUNCTIONALITY_NOT_ENABLED`. Standardowy dashboard raportów nie jest kontenerem
+dowolnych LWC. Wykonano działający wariant **dashboard + LWC na Home**; nie osadzono
+komponentu w niedostępnym dashboardzie CRM Analytics i nie uruchamiano triala.
+Po zmianie danych odśwież raport/dashboard; wyświetlany cache może być starszy.
 
 ## Publikacja erraty
 

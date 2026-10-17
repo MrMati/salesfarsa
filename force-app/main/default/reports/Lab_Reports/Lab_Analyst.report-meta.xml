@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Invoice__c$CreatedDate</field>
+    </columns>
+    <columns>
+        <field>Invoice__c$Name</field>
+    </columns>
+    <columns>
+        <field>Invoice__c$Property__c</field>
+    </columns>
+    <columns>
+        <field>Invoice__c$Service__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Average</aggregateTypes>
+        <field>Invoice__c$Gross_Amount__c</field>
+    </columns>
+    <description>Lab 6. Wszystkie daty; raport bieżący, dostęp użytkownika. Tylko Paid. Średnia na fakturę, odrębna od średniej wykonania LWC.</description>
+    <filter>
+        <criteriaItems>
+            <column>Invoice__c$Status__c</column>
+            <operator>equals</operator>
+            <value>Paid</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <field>Invoice__c$Provider__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Średnia faktura opłacona — analityk</name>
+    <reportType>Lab_Invoices__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Invoice__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

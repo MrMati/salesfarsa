@@ -129,4 +129,19 @@ private class Lab34Test {
         Invoice__c invoice=bill(100,'To_Pay','Miejsce A');insert invoice;invoice.Tax__c=99;invoice.Tax_Amount__c=999;update invoice;
         invoice=[SELECT Tax__c,Tax_Amount__c FROM Invoice__c WHERE Id=:invoice.Id];Assert.areEqual(23,invoice.Tax__c);Assert.areEqual(23,invoice.Tax_Amount__c);
     }
+    @IsTest static void paidTotalTracksBulkRestore() {
+        Id place=property('Miejsce A').Id;List<Invoice__c> invoices=new List<Invoice__c>();
+        for(Integer i=0;i<200;i++) invoices.add(new Invoice__c(Amount__c=100,Country__c='PL',Property__c=place,Status__c='Paid'));
+        insert invoices;delete invoices;
+        Assert.areEqual(0,property('Miejsce A').Total_Cost__c);
+        Test.startTest();undelete invoices;Test.stopTest();
+        Assert.areEqual(24600,property('Miejsce A').Total_Cost__c);
+    }
+    @IsTest static void restoreCannotDoubleBookProvider() {
+        Invoice__c original=booking(0,2);insert original;delete original;
+        insert booking(1,3);
+        Database.UndeleteResult result=Database.undelete(original,false);
+        Assert.isFalse(result.isSuccess(),'Restoring an invoice must not restore a conflicting booking.');
+        Assert.isTrue(result.getErrors()[0].getMessage().contains('unavailable'));
+    }
 }

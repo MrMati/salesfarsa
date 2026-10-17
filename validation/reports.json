@@ -1,0 +1,42 @@
+{
+  "Lab_Analyst": {
+    "name": "Średnia faktura opłacona — analityk",
+    "aggregates": {
+      "a!Invoice__c.Gross_Amount__c": 149.35714285714286,
+      "RowCount": 7
+    },
+    "soqlMatched": true,
+    "format": "SUMMARY"
+  },
+  "Lab_Finance": {
+    "name": "Należności i rozliczenia — księgowość",
+    "aggregates": {
+      "s!Invoice__c.Gross_Amount__c": 2696,
+      "RowCount": 15
+    },
+    "soqlMatched": true,
+    "format": "SUMMARY"
+  },
+  "Lab_Operations": {
+    "name": "Realizacja usług — koordynator",
+    "aggregates": {
+      "RowCount": 11
+    },
+    "soqlMatched": true,
+    "format": "SUMMARY"
+  },
+  "Lab_Property_Costs": {
+    "name": "Opłacone koszty według miasta",
+    "aggregates": {
+      "s!Property__c.Total_Cost__c": 1045.5,
+      "RowCount": 12
+    },
+    "soqlMatched": true,
+    "format": "SUMMARY"
+  },
+  "dashboard": {
+    "type": "LoggedInUser",
+    "componentCount": 3,
+    "source": "deployed metadata"
+  }
+}

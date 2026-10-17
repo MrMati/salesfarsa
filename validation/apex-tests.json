@@ -1,6 +1,6 @@
 {
   "status": "Passed",
-  "test_methods": 45,
+  "test_methods": 54,
   "failures": 0,
   "tests": [
     {
@@ -60,6 +60,11 @@
     },
     {
       "class": "Lab34Test",
+      "method": "paidTotalTracksBulkRestore",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
       "method": "paidTotalTracksDelete",
       "result": "Pass"
     },
@@ -91,6 +96,11 @@
     {
       "class": "Lab34Test",
       "method": "quoteFlowUnmatchedThenReassignedOnNewInterval",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab34Test",
+      "method": "restoreCannotDoubleBookProvider",
       "result": "Pass"
     },
     {
@@ -136,6 +146,41 @@
     {
       "class": "Lab4NotificationTest",
       "method": "publisherRunsOnSignificantChange",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab56SecurityTest",
+      "method": "accountantCanRecordPaymentButCannotReadAccessInstructions",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab56SecurityTest",
+      "method": "actorWithoutGroupHasNoBusinessAccess",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab56SecurityTest",
+      "method": "analystCanReadCostsButCannotWriteOrReadPrivateFields",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab56SecurityTest",
+      "method": "coordinatorCanOrderButCannotReadPaymentsOrBilling",
+      "result": "Pass"
+    },
+    {
+      "class": "ServiceCostControllerTest",
+      "method": "averagesOnlyCompletedBilledExecutions",
+      "result": "Pass"
+    },
+    {
+      "class": "ServiceCostControllerTest",
+      "method": "filtersBothDimensionsWithoutLeakingOtherGroups",
+      "result": "Pass"
+    },
+    {
+      "class": "ServiceCostControllerTest",
+      "method": "reportsTruncationInsteadOfHidingLimit",
       "result": "Pass"
     },
     {
@@ -231,49 +276,58 @@
   ],
   "coverage": [
     {
-      "component": "InvoiceTrigger",
-      "covered_lines": 6,
-      "total_lines": 6
+      "class": "InvoiceTrigger",
+      "covered": 15,
+      "total": 15
     },
     {
-      "component": "BookingEligibility",
-      "covered_lines": 47,
-      "total_lines": 47
+      "class": "BookingEligibility",
+      "covered": 47,
+      "total": 47
     },
     {
-      "component": "BookingGuard",
-      "covered_lines": 19,
-      "total_lines": 19
+      "class": "BookingGuard",
+      "covered": 19,
+      "total": 19
     },
     {
-      "component": "InvoiceLabController",
-      "covered_lines": 23,
-      "total_lines": 23
+      "class": "ServiceCostController",
+      "covered": 61,
+      "total": 61
     },
     {
-      "component": "QuoteMatchAction",
-      "covered_lines": 11,
-      "total_lines": 11
+      "class": "InvoiceLabController",
+      "covered": 23,
+      "total": 23
     },
     {
-      "component": "PropertyCostAction",
-      "covered_lines": 17,
-      "total_lines": 17
+      "class": "QuoteMatchAction",
+      "covered": 11,
+      "total": 11
     },
     {
-      "component": "InvoiceNotificationAction",
-      "covered_lines": 30,
-      "total_lines": 30
+      "class": "PropertyCostAction",
+      "covered": 17,
+      "total": 17
     },
     {
-      "component": "TaxCalculationService",
-      "covered_lines": 35,
-      "total_lines": 37
+      "class": "InvoiceNotificationAction",
+      "covered": 30,
+      "total": 30
     },
     {
-      "component": "Lab2Examples",
-      "covered_lines": 11,
-      "total_lines": 11
+      "class": "TaxCalculationService",
+      "covered": 35,
+      "total": 37
+    },
+    {
+      "class": "Lab2Examples",
+      "covered": 11,
+      "total": 11
     }
-  ]
+  ],
+  "covered_lines": 269,
+  "total_lines": 271,
+  "verified_at": "2026-10-17",
+  "source": "Metadata API deploy RunSpecifiedTests (six test classes)"
 }

@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Property__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Lab 6. Pola raportowe; dostęp do danych nadal zależy od CRUD, FLS i udostępniania.</description>
+    <label>Koszty nieruchomości</label>
+    <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>CreatedDate</field>
+            <table>Property__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
+            <table>Property__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Address__c</field>
+            <table>Property__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>City__c</field>
+            <table>Property__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Total_Cost__c</field>
+            <table>Property__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Owner__c</field>
+            <table>Property__c</table>
+        </columns>
+        <masterLabel>Koszty nieruchomości</masterLabel>
+    </sections>
+</ReportType>

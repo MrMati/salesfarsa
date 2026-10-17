@@ -1,6 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Laboratoria 1–2</description>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <content>Lab_Actor_Home</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <description>Laboratoria 1–6: aplikacja usług nieruchomości.</description>
     <formFactors>Large</formFactors>
     <label>Usługi nieruchomości — Lab</label>
     <navType>Standard</navType>
@@ -20,6 +27,7 @@
         <profile>Admin</profile>
         <type>Flexipage</type>
     </profileActionOverrides>
+    <tabs>standard-home</tabs>
     <tabs>Property__c</tabs>
     <tabs>Service__c</tabs>
     <tabs>Invoice__c</tabs>
@@ -34,5 +42,7 @@
     <tabs>Service_Skill__c</tabs>
     <tabs>Invoice_Notification__c</tabs>
     <tabs>Service_Order</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>

@@ -3,6 +3,8 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Laboratoria 3–4: usługi nieruchomości.</description>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <externalSharingModel>Private</externalSharingModel>
     <label>Zapytanie o usługę</label>
     <nameField>
         <displayFormat>QUO-{00000}</displayFormat>
@@ -10,5 +12,5 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Zapytania o usługę</pluralLabel>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
 </CustomObject>

@@ -1,10 +1,10 @@
-# Salesfarsa — Salesforce, laboratoria 1–6
+# Salesfarsa — Salesforce, laboratoria 1–7
 
-Wykonane i zweryfikowane 17.10.2026 w połączonym Developer Edition.
+Lab 1–6 zweryfikowano 17.10.2026, Lab 7 — 18.10.2026 w połączonym Developer Edition.
 Materiał: Maciej Miłosz, „Komponentowe podejście do wytwarzania aplikacji”,
-Politechnika Lubelska, 2022. Kontynuacja tej samej aplikacji; Lab 7–8 nie realizowano. Zadanie 6.3 wykonano w wariancie Home + LWC; CRM Analytics jest niedostępne.
+Politechnika Lubelska, 2022. Kontynuacja tej samej aplikacji; Lab 8 nie realizowano. Zadanie 6.3 wykonano w wariancie Home + LWC; CRM Analytics jest niedostępne.
 
-Pełna, skumulowana errata: [GitHub Pages](https://mrmati.github.io/salesfarsa/) lub [docs/index.html](docs/index.html) (61 pozycji).
+Pełna, skumulowana errata: [GitHub Pages](https://mrmati.github.io/salesfarsa/) lub [docs/index.html](docs/index.html) (73 pozycje).
 [PDF](docs/errata.pdf) pomija długi załącznik kodu. HTML zawiera historyczny załącznik kodu Lab 1–4; kompletne bieżące źródła są w projekcie.
 Repozytorium nie zawiera katalogów logowania, cookies, session IDs ani tokenów.
 
@@ -27,7 +27,7 @@ sf org login web --instance-url https://login.salesforce.com --alias developer -
 sf project deploy start --source-dir force-app/main/default/objects --source-dir force-app/main/default/classes --source-dir force-app/main/default/triggers --source-dir force-app/main/default/flows --source-dir force-app/main/default/lwc --source-dir force-app/main/default/aura --source-dir force-app/main/default/reportTypes --source-dir force-app/main/default/reports --source-dir force-app/main/default/dashboards --target-org developer --test-level NoTestRun --wait 10
 sf project deploy start --source-dir force-app --target-org developer --test-level NoTestRun --wait 10
 sf org assign permset --name Property_Services_Labs --target-org developer
-sf project deploy start --source-dir force-app --target-org developer --test-level RunSpecifiedTests --tests TaxCalculationServiceTest --tests Lab2ExamplesTest --tests Lab34Test --tests Lab4NotificationTest --tests Lab56SecurityTest --tests ServiceCostControllerTest --wait 10
+sf project deploy start --source-dir force-app --target-org developer --test-level RunSpecifiedTests --tests TaxCalculationServiceTest --tests Lab2ExamplesTest --tests Lab34Test --tests Lab4NotificationTest --tests Lab56SecurityTest --tests ServiceCostControllerTest --tests Lab7SharingTest --wait 10
 sf apex run --file scripts/apex/seed-labs.apex --target-org developer
 sf apex run --file scripts/apex/seed-lab34.apex --target-org developer
 npm ci --ignore-scripts
@@ -36,7 +36,7 @@ npm run lint
 ```
 
 Pierwszy etap tworzy model i raporty przed walidacją osadzonego dashboardu na Home.
-Drugi dodaje aplikację, Home, profile i grupy. NoTestRun służy tu wyłącznie do wstępnego wdrożenia w Developer Edition i nadania
+Drugi dodaje aplikację, Home, profile, grupy, role i reguły udostępniania. Po zmianie OWD platforma może wymagać zakończenia przeliczania udziałów przed wdrożeniem reguł; jeżeli zgłosi sharing operation already in progress, powtórz wdrożenie reguł po ukończeniu tej operacji. NoTestRun służy tu wyłącznie do wstępnego wdrożenia w Developer Edition i nadania
 uprawnień do nowych pól. Końcowe wdrożenie wykonuje rzeczywiste testy.
 W chmurowej sesji dodawano `SFDX_DISABLE_DNS_CHECK=true` przed komendami sf,
 ponieważ lokalny test DNS CLI nie obsługiwał proxy. HTTPS i weryfikacja TLS
@@ -52,7 +52,7 @@ Account; nie zastępuje całości profilu ani jego uprawnień.
 App Launcher → **Usługi nieruchomości — Lab** → **Zamów usługę**.
 Wybierz usługę, nieruchomość, kraj i termin, następnie firmę. Formularz zapisuje fakturę
 z wykonawcą i wyliczonym podatkiem. Na fakturze jest symulator LWC. Na nieruchomości
-jest komponent Aura sumujący wszystkie faktury brutto.
+jest komponent Aura sumujący widoczne faktury brutto.
 
 Przy danych demonstracyjnych:
 
@@ -81,8 +81,8 @@ Przy danych demonstracyjnych:
    sprawdzana przy zapisie pod blokadą rekordu; wykrywane są też kolizje jednej porcji.
 5. Firma musi być aktywna, mieć aktywną ofertę i WSZYSTKIE kwalifikacje usługi.
    Quote wybiera pierwszą alfabetycznie, potem po Id; sam nie rezerwuje czasu.
-6. Aura sumuje brutto wszystkich faktur, także Cancelled. Total_Cost__c jest sumą
-   brutto tylko Paid. Flow aktualizuje sumę przy zmianach statusu, netto, kraju,
+6. Aura sumuje brutto widocznych faktur, także Cancelled. Total_Cost__c jest globalną sumą
+   brutto tylko Paid, udostępnioną administracji. Flow aktualizuje sumę przy zmianach statusu, netto, kraju,
    nieruchomości (starej i nowej) i usunięciu faktury.
 
 ## Aktywne Flow
@@ -113,14 +113,14 @@ który nie dostarcza wiadomości. EmailSent oznacza przyjęcie żądania, nie do
 
 ## Weryfikacja
 
-- Metadata API: 54 metody testowe, 0 błędów. Asynchroniczny raport może doliczać metody @TestSetup; liczbę właściwych testów podaje Metadata API.
+- Metadata API: 66 metod testowych, 0 błędów. Asynchroniczny raport może doliczać metody @TestSetup; liczbę właściwych testów podaje Metadata API.
 - 9 testów LWC, 3 pakiety, wszystkie PASS; ESLint bez błędów.
-- Końcowy kontrakt wejść/wyjść providerPicker ponownie sprawdzono w przeglądarce;
+- Etap Lab 3–4 (17.10): kontrakt wejść/wyjść providerPicker sprawdzono w przeglądarce;
   tymczasową fakturę utworzono i usunięto po potwierdzeniu.
-- Pokrycie kodu i lista 54 metod z końcowego wdrożenia: `validation/apex-tests.json`.
+- Pokrycie kodu i lista 66 metod z końcowego wdrożenia: `validation/apex-tests.json`.
   Testy obejmują również CRUD/FLS trzech aktorów, średnie kosztów oraz bulk undelete.
 - Bulk: 200 faktur, 200 faktur do sumy Paid i 200 zapytań Quote.
-- Zalogowana przeglądarka Salesforce: cały Screen Flow do zapisu, LWC DE, Aura,
+- Etap Lab 3–4 (17.10), zalogowana przeglądarka: Screen Flow do zapisu, LWC DE, Aura,
   Tax__c widoczne dla To_Pay i ukryte przy Paid.
 - Rzeczywiste zdarzenia po zapisie odebrane przez subscriber i zarejestrowane bez e-maili.
 
@@ -136,7 +136,7 @@ Account. Minimum_Notice_Hours__c i Cancellation_Notice_Hours__c są polami infor
 
 Interfejs sprawdzono w przeglądarce desktopowej; erratę osobno na telefonowej szerokości.
 Nie testowano natywnej aplikacji Salesforce Mobile ani wielowątkowego obciążenia blokad.
-Lab 5 sprawdza CRUD/FLS trzech profili z grupami przez System.runAs + USER_MODE. Nie wykonywano trzech osobnych sesji UI. OWD i hierarchia ról pozostają zakresem Lab 7.
+Lab 5 sprawdza CRUD/FLS trzech profili z grupami przez System.runAs + USER_MODE. Nie wykonywano trzech osobnych sesji UI. Lab 7 wprowadza prywatne OWD, hierarchię ról i reguły udostępniania.
 
 
 ## Laboratoria 5–6
@@ -196,14 +196,16 @@ prowadzą do folderu **Laboratoria — usługi nieruchomości**.
 | Realizacja usług — koordynator | Liczba wykonań według statusu |
 | Należności i rozliczenia — księgowość | Suma brutto faktur według statusu, terminy w szczegółach |
 | Średnia faktura opłacona — analityk | AVG brutto faktury Paid, według firmy |
-| Opłacone koszty według miasta | Suma Property.Total_Cost__c, według miasta |
+| Opłacone faktury — nieruchomości | Suma brutto widocznych faktur Paid, według nieruchomości |
 
-Cztery raporty Summary używają trzech Custom Report Types: `Lab_Invoices`,
-`Lab_Executions`, `Lab_Properties`. Mają zakres wszystkich dat i widocznych danych.
+Wdrożono trzy Custom Report Types: `Lab_Invoices`,
+`Lab_Executions`, `Lab_Properties`. Po Lab 7 raporty aktorów korzystają z Invoice/Execution;
+typ Property z globalnym rollupem pozostaje do zastosowań administracyjnych.
+Raporty mają zakres wszystkich dat i widocznych danych.
 Dynamiczny `Lab_Overview` działa jako **LoggedInUser**, bez stałego konta administratora
 jako running user. Trzy wykresy wybierają agregaty ze źródłowych raportów. Raporty i
 LWC respektują CRUD/FLS; publiczny wewnętrzny folder daje dostęp do definicji,
-nie do ukrytych pól. Nie zmieniano OWD ani hierarchii ról z Lab 7.
+nie do ukrytych pól. W Lab 7 zastosowano prywatne OWD i hierarchię ról; raporty i LWC pokazują dostępny użytkownikowi wycinek.
 
 LWC liczy średnią brutto faktury **na zakończone wykonanie**, grupując nieruchomość,
 firmę i usługę. Wyklucza wykonania bez faktury i faktury Cancelled, pokazuje liczebność
@@ -211,6 +213,9 @@ próby. To odrębna miara od średniej opłaconej faktury. Komponent wspiera Hom
 oraz stronę rekordu Property; na rekordzie filtruje po bieżącej nieruchomości.
 Zapytania używają USER_MODE, a po przekroczeniu 200 grup wyświetlana jest informacja
 o ograniczeniu. Dane pieniężne są w jednej walucie orga; nie jest to konwersja walut.
+Po Lab 7 globalne Property.Total_Cost__c jest ukryte dla ograniczonych aktorów.
+Ich raport kosztów liczy sumę wyłącznie z widocznych faktur Paid, grupując po
+nieruchomości; administrator nadal widzi oryginalny rollup Lab 4.
 
 **Ograniczenie zadania 6.3:** dokumentacja w PDF dotyczy CRM Analytics. Ten org ma
 0 licencji Analytics Cloud Builder/Explorer i Wave API zwraca
@@ -219,6 +224,80 @@ dowolnych LWC. Wykonano działający wariant **dashboard + LWC na Home**; nie os
 komponentu w niedostępnym dashboardzie CRM Analytics i nie uruchamiano triala.
 Po zmianie danych odśwież raport/dashboard; wyświetlany cache może być starszy.
 
+## Laboratorium 7 — widoczność rekordów
+
+Cztery role tworzą hierarchię: **Lab7_Manager** nad trzema równorzędnymi rolami
+**Lab7_Coordinator**, **Lab7_Accountant**, **Lab7_Analyst**. Rola odpowiada za zakres
+rekordów; profil i Permission Set Group nadal ograniczają obiekty, pola i operacje.
+Administrator z View All Data nie jest reprezentatywnym użytkownikiem do testowania
+prywatności. Testy używają rzeczywistych minimalnych profili bez tego uprawnienia.
+
+Wszystkie obiekty danych z właścicielem mają **Private** wewnętrznie i zewnętrznie,
+a trzy junction objects nadal **ControlledByParent**. Włączone dziedziczenie ról
+na obiektach custom daje przełożonemu dostęp do rekordów podwładnych. Zmiana OWD
+Account wymagała także Private dla standardowych Case i Opportunity, które wcześniej
+miały szerszą widoczność. Contact nie jest częścią modelu aplikacji i nie był zmieniany.
+Nie dodano aktorom uprawnień do Case, Contact ani Opportunity.
+
+Wyjątki od prywatnego OWD są jawne i węższe od dawnych publicznych ustawień:
+
+| Mechanizm | Zakres i poziom |
+| --- | --- |
+| Cztery owner-based sharing rules Property | Właściciel i odbiorcy dokładnie w tej samej roli; Edit dla koordynatora/kierownika, Read dla księgowości/analityka |
+| Criteria-based Account | Tylko Active + Is_Provider; Read dla wewnętrznych ról pod Lab7_Manager |
+| Criteria-based Service | Tylko aktywne usługi; Read dla tych ról |
+| Criteria-based Skill | Tylko kwalifikacje z kodem; Read |
+| Criteria-based Country_Tax_Rate | Stawki >= 0; Read |
+
+Reguły katalogowe nie udostępniają faktur, płatności, Quote ani wykonań. Odczyt obu
+masterów umożliwia odczyt ofert i kwalifikacji z junction objects. W każdym przypadku
+CRUD/FLS nadal obowiązuje. Reguła Property nie udostępnia automatycznie faktur danej
+nieruchomości — relacja jest Lookup, a nie Master-Detail.
+
+### Udostępnienie faktury przez pole — 7.3
+
+`Invoice__c.Shared_With__c` wskazuje aktywnego User. Pole jest na layoucie i Dynamic
+Forms; edytują je koordynator oraz księgowość, analityk ma tylko odczyt.
+`InvoiceSharingService`, uruchamiany przez trigger, utrzymuje **Read** w
+`Invoice__Share` z własnym RowCause **Selected_User__c**.
+
+- Insert / zmiana pola nadaje odczyt nowemu użytkownikowi i usuwa poprzedni udział
+  tego mechanizmu. Wyczyszczenie usuwa go całkowicie.
+- Manual, Owner i Rule to odrębne źródła dostępu i nie są kasowane. Zmiana pola
+  nie gwarantuje utraty dostępu, jeśli użytkownik ma inny udział albo jest przełożonym.
+- Własny powód udziału zachowuje go przy przeniesieniu właściciela; undelete
+  odtwarza wymagany stan. Udział właściciela nie jest powielany.
+- Nieaktywny odbiorca jest blokowany walidacją. Błąd nadania udziału wycofuje zapis
+  faktury, żeby nie pozostawić niespełnionej deklaracji w polu.
+- Udział nie nadaje CRUD/FLS i nie udostępnia automatycznie rodziców ani wykonania
+  usługi. Samo wskazanie użytkownika bez dostępu do Invoice nie daje mu obiektu.
+
+To kontrolowana delegacja odczytu przez edytorów pola. Nie jest to twierdzenie,
+że każdy zwykły edytor rekordu ma prawo do standardowego Manual Sharing.
+
+### Reguły systemowe po włączeniu Private
+
+Cudze faktury nadal zajmują termin. UI pobiera katalog z USER_MODE, a ukryte
+rezerwacje są używane wewnętrznie tylko do decyzji dostępny/niedostępny. Walidacja
+triggera działa na pełnych danych, z blokadą wykonawcy; nie oddaje danych cudzej
+faktury. Dostęp do klas systemowych nie jest wystawiony jako nowy endpoint LWC.
+Konfiguracja podatku jest odczytywana w kontekście automatyzacji.
+
+Agregacja średnich wymaga widoczności zarówno Service_Execution, jak i powiązanej
+Invoice. Jawny semi-join do Invoice w USER_MODE zapobiega ujawnieniu kwoty przez
+widoczne wykonanie połączone z prywatną fakturą. Denial test obejmuje ten przypadek.
+Globalny rollup Property.Total_Cost__c pozostaje wskaźnikiem administracyjnym: trzy
+procesowe permission sety jawnie odmawiają odczytu tego pola. Raport
+Lab_Property_Costs został przepisany na widoczne Invoice Paid, ponieważ zapisana
+suma globalna nie może bezpiecznie zastąpić sumy zależnej od użytkownika.
+
+`Lab7SharingTest` sprawdza prywatność między rolami i osobami tej samej roli,
+dziedziczenie przełożonego, zmianę roli, nieruchomości współdzielone w roli,
+nadanie/zamianę/wycofanie udziału faktury, niezależny Manual, zmianę właściciela,
+undelete, 200 udziałów, inactive User, CRUD oraz ukryte rezerwacje i koszt faktury.
+Użytkownicy są tworzeni tylko w testach i wycofywani; nie zostają nowe stałe konta
+ani dodatkowe zajęte licencje. Nie deklarujemy trzech osobnych sesji UI aktorów.
+
 ## Publikacja erraty
 
 GitHub Pages publikuje folder `/docs` z gałęzi `main`:
@@ -226,6 +305,6 @@ GitHub Pages publikuje folder `/docs` z gałęzi `main`:
 zewnętrznych fontów, bibliotek ani konta Salesforce. Edytuj `docs/index.html`, aby
 zaktualizować erratę; PDF jest osobnym eksportem do odświeżenia po zmianach treści.
 
-Podsumowania w `validation/` opisują wykonane sprawdzenia z 17.10.2026. Nie są
+Podsumowania w `validation/` opisują wykonane sprawdzenia z 17–18.10.2026. Nie są
 wynikiem nowego wdrożenia na każdym `git push`. Nie dodajemy do repozytorium surowych
 logów, eksportu oryginalnego PDF, plików sesji, `node_modules` ani kolejnych kopii ZIP.

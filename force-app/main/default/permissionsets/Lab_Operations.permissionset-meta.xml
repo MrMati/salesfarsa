@@ -81,7 +81,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Property__c.Total_Cost__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -251,6 +251,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Service_Execution__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Invoice__c.Shared_With__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <flowAccesses>

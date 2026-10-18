@@ -28,16 +28,16 @@ private class Lab56SecurityTest {
     private static User actor(String actor) {
         return [SELECT Id FROM User WHERE LastName = :('Lab56 '+actor) LIMIT 1];
     }
-    private static void sampleExecution() {
-        insert new Country_Tax_Rate__c(Country__c='PL',Tax__c=23);
-        Account firm=new Account(Name='Firma bezpieczeństwa');insert firm;
-        Service__c service=new Service__c(Title__c='Usługa testowa',Price__c=100,Time_Required__c=1);insert service;
-        Property__c place=new Property__c(Address__c='Budynek testowy',Access_Notes__c='Poufne');insert place;
-        Invoice__c invoice=new Invoice__c(Amount__c=100,Country__c='PL',Property__c=place.Id,Service__c=service.Id,Provider__c=firm.Id,Status__c='Paid');insert invoice;
-        insert new Service_Execution__c(Property__c=place.Id,Service__c=service.Id,Provider__c=firm.Id,Invoice__c=invoice.Id,Status__c='Completed',Completed_At__c=System.now());
+    private static void sampleExecution(Id owner) {
+        insert new Country_Tax_Rate__c(OwnerId=owner,Country__c='PL',Tax__c=23);
+        Account firm=new Account(OwnerId=owner,Name='Firma bezpieczeństwa');insert firm;
+        Service__c service=new Service__c(OwnerId=owner,Title__c='Usługa testowa',Price__c=100,Time_Required__c=1);insert service;
+        Property__c place=new Property__c(OwnerId=owner,Address__c='Budynek testowy',Access_Notes__c='Poufne');insert place;
+        Invoice__c invoice=new Invoice__c(OwnerId=owner,Amount__c=100,Country__c='PL',Property__c=place.Id,Service__c=service.Id,Provider__c=firm.Id,Status__c='Paid');insert invoice;
+        insert new Service_Execution__c(OwnerId=owner,Property__c=place.Id,Service__c=service.Id,Provider__c=firm.Id,Invoice__c=invoice.Id,Status__c='Completed',Completed_At__c=System.now());
     }
     @IsTest static void coordinatorCanOrderButCannotReadPaymentsOrBilling() {
-        sampleExecution();
+        sampleExecution(actor('Coordinator').Id);
         System.runAs(actor('Coordinator')) {
             Assert.isTrue(Invoice__c.SObjectType.getDescribe().isCreateable());
             Assert.areEqual(123,ServiceCostController.getCosts(null,null).rows[0].averageGross);
@@ -53,7 +53,7 @@ private class Lab56SecurityTest {
         }
     }
     @IsTest static void accountantCanRecordPaymentButCannotReadAccessInstructions() {
-        sampleExecution();
+        sampleExecution(actor('Accountant').Id);
         System.runAs(actor('Accountant')) {
             Assert.isTrue(Payment__c.SObjectType.getDescribe().isCreateable());
             Assert.areEqual(123,ServiceCostController.getCosts(null,null).rows[0].averageGross);
@@ -68,7 +68,7 @@ private class Lab56SecurityTest {
         }
     }
     @IsTest static void analystCanReadCostsButCannotWriteOrReadPrivateFields() {
-        sampleExecution();
+        sampleExecution(actor('Analyst').Id);
         System.runAs(actor('Analyst')) {
             Assert.isTrue(Service_Execution__c.SObjectType.getDescribe().isAccessible());
             Assert.isFalse(Invoice__c.SObjectType.getDescribe().isCreateable());

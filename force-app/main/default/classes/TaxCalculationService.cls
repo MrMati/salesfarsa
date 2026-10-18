@@ -17,7 +17,7 @@ public with sharing class TaxCalculationService {
     // Exercise 2.3: query matching rates, also reusable for a singleton country set.
     public static List<Country_Tax_Rate__c> findTaxRates(Set<String> countries) {
         if (countries == null || countries.isEmpty()) return new List<Country_Tax_Rate__c>();
-        return [SELECT Country__c, Tax__c FROM Country_Tax_Rate__c WHERE Country__c IN :countries];
+        return [SELECT Country__c, Tax__c FROM Country_Tax_Rate__c WHERE Country__c IN :countries WITH SYSTEM_MODE];
     }
 
     public static void calculateTax(Invoice__c invoice) {

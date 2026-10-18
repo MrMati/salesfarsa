@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Lab_Active_Providers</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <criteriaItems>
+            <field>Is_Provider__c</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </criteriaItems>
+        <description>Lab 7: jawny wyjątek katalogowy do prywatnego OWD. Nie udostępnia faktur ani płatności.</description>
+        <label>Aktywni wykonawcy</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Lab7_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+    </sharingCriteriaRules>
+</SharingRules>

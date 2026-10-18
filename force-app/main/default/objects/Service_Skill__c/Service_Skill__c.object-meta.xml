@@ -3,6 +3,7 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Laboratoria 3–4: usługi nieruchomości.</description>
     <enableReports>true</enableReports>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Wymaganie usługi</label>
     <nameField>
         <displayFormat>SER-{00000}</displayFormat>

@@ -40,7 +40,7 @@ public with sharing class ServiceCostController {
                 + 'COUNT(Id) executions, AVG(Invoice__r.Gross_Amount__c) averageGross '
                 + 'FROM Service_Execution__c '
                 + 'WHERE Status__c = \'Completed\' AND Invoice__c != null '
-                + 'AND Invoice__r.Status__c != \'Cancelled\' '
+                + 'AND Invoice__c IN (SELECT Id FROM Invoice__c WHERE Status__c != \'Cancelled\') '
                 + 'AND Property__c != null AND Provider__c != null AND Service__c != null '
                 + criteria
                 + ' GROUP BY Property__c, Provider__c, Service__c '

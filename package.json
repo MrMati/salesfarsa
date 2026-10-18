@@ -2,7 +2,7 @@
   "name": "salesfarsa",
   "private": true,
   "version": "1.0.0",
-  "description": "Salesforce labs 1–6: property services, Apex, Lightning, Flow, security and reports",
+  "description": "Salesforce labs 1–7: property services, Apex, Lightning, Flow, security, reports and record sharing",
   "scripts": {
     "lint": "eslint **/{aura,lwc}/**/*.js",
     "test": "npm run test:unit",

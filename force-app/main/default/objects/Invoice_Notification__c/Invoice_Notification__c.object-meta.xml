@@ -3,6 +3,8 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Laboratoria 3–4: usługi nieruchomości.</description>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <externalSharingModel>Private</externalSharingModel>
     <label>Ślad powiadomienia</label>
     <nameField>
         <displayFormat>INV-{00000}</displayFormat>

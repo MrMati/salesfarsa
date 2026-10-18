@@ -1,6 +1,6 @@
 {
   "status": "Passed",
-  "test_methods": 54,
+  "test_methods": 66,
   "failures": 0,
   "tests": [
     {
@@ -169,6 +169,66 @@
       "result": "Pass"
     },
     {
+      "class": "Lab7SharingTest",
+      "method": "bulk200SharesAreReplacedAndRemoved",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab7SharingTest",
+      "method": "changingAndClearingRecipientRevokesOnlyManagedShare",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab7SharingTest",
+      "method": "costAggregateRequiresVisibleInvoiceAsWellAsExecution",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab7SharingTest",
+      "method": "customReasonSurvivesOwnerChangeAndRestore",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab7SharingTest",
+      "method": "globalPaidRollupIsHiddenFromLimitedActors",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab7SharingTest",
+      "method": "hiddenReservationStillBlocksProvider",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab7SharingTest",
+      "method": "inactiveRecipientIsRejected",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab7SharingTest",
+      "method": "ownerRecipientNeedsNoRedundantShare",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab7SharingTest",
+      "method": "privateInvoicesAndHierarchy",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab7SharingTest",
+      "method": "sameRolePropertyRuleAndRoleChange",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab7SharingTest",
+      "method": "selectedUserGetsReadButCannotEdit",
+      "result": "Pass"
+    },
+    {
+      "class": "Lab7SharingTest",
+      "method": "shareCannotGrantMissingObjectPermission",
+      "result": "Pass"
+    },
+    {
       "class": "ServiceCostControllerTest",
       "method": "averagesOnlyCompletedBilledExecutions",
       "result": "Pass"
@@ -276,14 +336,19 @@
   ],
   "coverage": [
     {
+      "class": "InvoiceSharingService",
+      "covered": 25,
+      "total": 25
+    },
+    {
       "class": "InvoiceTrigger",
-      "covered": 15,
-      "total": 15
+      "covered": 17,
+      "total": 17
     },
     {
       "class": "BookingEligibility",
-      "covered": 47,
-      "total": 47
+      "covered": 54,
+      "total": 54
     },
     {
       "class": "BookingGuard",
@@ -326,8 +391,8 @@
       "total": 11
     }
   ],
-  "covered_lines": 269,
-  "total_lines": 271,
-  "verified_at": "2026-10-17",
-  "source": "Metadata API deploy RunSpecifiedTests (six test classes)"
+  "covered_lines": 303,
+  "total_lines": 305,
+  "verified_at": "2026-10-18",
+  "source": "Metadata API deploy RunSpecifiedTests (seven test classes)"
 }

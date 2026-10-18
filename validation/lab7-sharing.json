@@ -1,0 +1,139 @@
+{
+  "verified_at": "2026-10-18",
+  "owd": [
+    {
+      "QualifiedApiName": "Account",
+      "InternalSharingModel": "Private",
+      "ExternalSharingModel": "Private"
+    },
+    {
+      "QualifiedApiName": "Account_Service__c",
+      "InternalSharingModel": "ControlledByParent",
+      "ExternalSharingModel": "ControlledByParent"
+    },
+    {
+      "QualifiedApiName": "Account_Skill__c",
+      "InternalSharingModel": "ControlledByParent",
+      "ExternalSharingModel": "ControlledByParent"
+    },
+    {
+      "QualifiedApiName": "Case",
+      "InternalSharingModel": "Private",
+      "ExternalSharingModel": "Private"
+    },
+    {
+      "QualifiedApiName": "Country_Tax_Rate__c",
+      "InternalSharingModel": "Private",
+      "ExternalSharingModel": "Private"
+    },
+    {
+      "QualifiedApiName": "Invoice_Notification__c",
+      "InternalSharingModel": "Private",
+      "ExternalSharingModel": "Private"
+    },
+    {
+      "QualifiedApiName": "Invoice__c",
+      "InternalSharingModel": "Private",
+      "ExternalSharingModel": "Private"
+    },
+    {
+      "QualifiedApiName": "Opportunity",
+      "InternalSharingModel": "Private",
+      "ExternalSharingModel": "Private"
+    },
+    {
+      "QualifiedApiName": "Payment__c",
+      "InternalSharingModel": "Private",
+      "ExternalSharingModel": "Private"
+    },
+    {
+      "QualifiedApiName": "Property__c",
+      "InternalSharingModel": "Private",
+      "ExternalSharingModel": "Private"
+    },
+    {
+      "QualifiedApiName": "Quote__c",
+      "InternalSharingModel": "Private",
+      "ExternalSharingModel": "Private"
+    },
+    {
+      "QualifiedApiName": "Service_Execution__c",
+      "InternalSharingModel": "Private",
+      "ExternalSharingModel": "Private"
+    },
+    {
+      "QualifiedApiName": "Service_Skill__c",
+      "InternalSharingModel": "ControlledByParent",
+      "ExternalSharingModel": "ControlledByParent"
+    },
+    {
+      "QualifiedApiName": "Service__c",
+      "InternalSharingModel": "Private",
+      "ExternalSharingModel": "Private"
+    },
+    {
+      "QualifiedApiName": "Skill__c",
+      "InternalSharingModel": "Private",
+      "ExternalSharingModel": "Private"
+    }
+  ],
+  "roles": [
+    {
+      "name": "Lab7_Accountant",
+      "parent": "Lab7_Manager"
+    },
+    {
+      "name": "Lab7_Analyst",
+      "parent": "Lab7_Manager"
+    },
+    {
+      "name": "Lab7_Coordinator",
+      "parent": "Lab7_Manager"
+    },
+    {
+      "name": "Lab7_Manager",
+      "parent": null
+    }
+  ],
+  "persistentDataCounts": {
+    "Account": 2019,
+    "Property__c": 12,
+    "Invoice__c": 15,
+    "Payment__c": 11,
+    "Quote__c": 11,
+    "Service_Execution__c": 11
+  },
+  "permanentLab7UsersCreated": 0,
+  "sharingRuleCount": 8,
+  "propertyOwnerRules": 4,
+  "catalogueCriteriaRules": 4,
+  "recipientField": "Invoice__c.Shared_With__c",
+  "managedReason": "Selected_User__c",
+  "managedAccessLevel": "Read",
+  "fieldPolicies": {
+    "Property__c.Total_Cost__c": "hidden from all three limited actor permission sets; administrative global rollup",
+    "Invoice__c.Shared_With__c": "editable by operations/finance, read by analyst"
+  },
+  "testMethods": [
+    "bulk200SharesAreReplacedAndRemoved",
+    "changingAndClearingRecipientRevokesOnlyManagedShare",
+    "costAggregateRequiresVisibleInvoiceAsWellAsExecution",
+    "customReasonSurvivesOwnerChangeAndRestore",
+    "globalPaidRollupIsHiddenFromLimitedActors",
+    "hiddenReservationStillBlocksProvider",
+    "inactiveRecipientIsRejected",
+    "ownerRecipientNeedsNoRedundantShare",
+    "privateInvoicesAndHierarchy",
+    "sameRolePropertyRuleAndRoleChange",
+    "selectedUserGetsReadButCannotEdit",
+    "shareCannotGrantMissingObjectPermission"
+  ],
+  "allSharingTestsPassed": true,
+  "actorUiSessionsTested": false,
+  "manualSharesPreserved": true,
+  "bulkSharesTested": 200,
+  "hiddenBookingsBlockProvider": true,
+  "invisibleInvoicesExcludedFromCost": true,
+  "roleChangeActuallyTested": true,
+  "emailsSent": 0
+}

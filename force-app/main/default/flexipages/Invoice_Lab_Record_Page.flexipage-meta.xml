@@ -161,6 +161,12 @@
                 <identifier>FieldNotifyOwnerc</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Shared_With__c</fieldItem>
+                <identifier>RecordShared_With_c</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>LabFieldsLeft</name>
         <type>Facet</type>
     </flexiPageRegions>

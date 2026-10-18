@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Lab_Coded_Skills</fullName>
+        <accessLevel>Read</accessLevel>
+        <criteriaItems>
+            <field>Code__c</field>
+            <operation>notEqual</operation>
+            <value />
+        </criteriaItems>
+        <description>Lab 7: jawny wyjątek katalogowy do prywatnego OWD. Nie udostępnia faktur ani płatności.</description>
+        <label>Kwalifikacje z kodem</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Lab7_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+    </sharingCriteriaRules>
+</SharingRules>

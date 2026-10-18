@@ -11,10 +11,10 @@
     "temporary_invoice_deleted": true
   },
   "report": {
-    "entries": 61,
+    "entries": 73,
     "categoryCounts": {
-      "Błąd": 17,
-      "Doprecyzowanie": 35,
+      "Błąd": 22,
+      "Doprecyzowanie": 42,
       "Aktualizacja": 6,
       "Sprawdzone": 3
     },
@@ -49,5 +49,12 @@
     "testedAs": "current administrator",
     "actorCrudFlsTestedInApex": true,
     "actorUiSessionsTested": false
+  },
+  "lab7": {
+    "fieldVisibleOnInvoice": true,
+    "testedAs": "current administrator",
+    "separateActorUiSessions": false,
+    "homeDashboardAndLwcVisibleAfterRefresh": true,
+    "homeVerification": "Visual inspection of the loaded Home screenshot: three charts and cost table; current administrator"
   }
 }

@@ -1,5 +1,5 @@
 /** Revalidate the UI choice under provider locks; reject stale choices and overlaps in one DML batch. */
-public with sharing class BookingGuard {
+public without sharing class BookingGuard {
     public static void validate(List<Invoice__c> values,Map<Id,Invoice__c> oldValues) {
         List<Invoice__c> checked=new List<Invoice__c>();List<BookingEligibility.Request> requests=new List<BookingEligibility.Request>();
         Set<Id> providers=new Set<Id>();Set<Id> excluded=new Set<Id>();
@@ -13,7 +13,7 @@ public with sharing class BookingGuard {
         if(checked.isEmpty()) return;
         // Serialize competing reservations for the same provider. Trigger automation owns this lock.
         List<Account> locked=[SELECT Id FROM Account WHERE Id IN :providers FOR UPDATE];
-        List<List<BookingEligibility.ProviderOption>> options=BookingEligibility.findProviders(requests,excluded);
+        List<List<BookingEligibility.ProviderOption>> options=BookingEligibility.findProvidersForValidation(requests,excluded);
         for(Integer i=0;i<checked.size();i++) {
             Boolean allowed=false;
             for(BookingEligibility.ProviderOption option:options[i]) if(option.value==checked[i].Provider__c) allowed=true;

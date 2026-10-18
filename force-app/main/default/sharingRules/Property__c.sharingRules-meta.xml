@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Lab7_Manager_Property_Peers</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Lab 7.2: nieruchomości właścicieli dokładnie tej samej roli.</description>
+        <label>Kierownik usług — nieruchomości w roli</label>
+        <sharedFrom>
+            <role>Lab7_Manager</role>
+        </sharedFrom>
+        <sharedTo>
+            <role>Lab7_Manager</role>
+        </sharedTo>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Lab7_Coordinator_Property_Peers</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Lab 7.2: nieruchomości właścicieli dokładnie tej samej roli.</description>
+        <label>Koordynator usług — nieruchomości w roli</label>
+        <sharedFrom>
+            <role>Lab7_Coordinator</role>
+        </sharedFrom>
+        <sharedTo>
+            <role>Lab7_Coordinator</role>
+        </sharedTo>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Lab7_Accountant_Property_Peers</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Lab 7.2: nieruchomości właścicieli dokładnie tej samej roli.</description>
+        <label>Księgowość — nieruchomości w roli</label>
+        <sharedFrom>
+            <role>Lab7_Accountant</role>
+        </sharedFrom>
+        <sharedTo>
+            <role>Lab7_Accountant</role>
+        </sharedTo>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Lab7_Analyst_Property_Peers</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Lab 7.2: nieruchomości właścicieli dokładnie tej samej roli.</description>
+        <label>Analityk kosztów — nieruchomości w roli</label>
+        <sharedFrom>
+            <role>Lab7_Analyst</role>
+        </sharedFrom>
+        <sharedTo>
+            <role>Lab7_Analyst</role>
+        </sharedTo>
+    </sharingOwnerRules>
+</SharingRules>

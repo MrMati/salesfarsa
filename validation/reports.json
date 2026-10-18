@@ -26,10 +26,10 @@
     "format": "SUMMARY"
   },
   "Lab_Property_Costs": {
-    "name": "Opłacone koszty według miasta",
+    "name": "Opłacone faktury — nieruchomości",
     "aggregates": {
-      "s!Property__c.Total_Cost__c": 1045.5,
-      "RowCount": 12
+      "s!Invoice__c.Gross_Amount__c": 1045.5,
+      "RowCount": 7
     },
     "soqlMatched": true,
     "format": "SUMMARY"
@@ -37,6 +37,8 @@
   "dashboard": {
     "type": "LoggedInUser",
     "componentCount": 3,
-    "source": "deployed metadata"
-  }
+    "typeSource": "deployed metadata"
+  },
+  "verified_at": "2026-10-18",
+  "executedAs": "current administrator; amounts compared to SOQL"
 }

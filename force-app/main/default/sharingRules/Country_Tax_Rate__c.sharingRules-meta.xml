@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Lab_Tax_Configuration</fullName>
+        <accessLevel>Read</accessLevel>
+        <criteriaItems>
+            <field>Tax__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>0</value>
+        </criteriaItems>
+        <description>Lab 7: jawny wyjątek katalogowy do prywatnego OWD. Nie udostępnia faktur ani płatności.</description>
+        <label>Konfiguracja stawek</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>Lab7_Manager</roleAndSubordinatesInternal>
+        </sharedTo>
+    </sharingCriteriaRules>
+</SharingRules>

@@ -68,7 +68,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Property__c.Total_Cost__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -268,6 +268,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Contract_Reference__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Invoice__c.Shared_With__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <label>Rozliczenia</label>

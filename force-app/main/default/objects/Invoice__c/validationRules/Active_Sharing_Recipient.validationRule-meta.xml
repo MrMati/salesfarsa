@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_Sharing_Recipient</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(NOT(ISBLANK(Shared_With__c)), NOT(Shared_With__r.IsActive))</errorConditionFormula>
+    <errorDisplayField>Shared_With__c</errorDisplayField>
+    <errorMessage>Wybierz aktywnego użytkownika do udostępnienia faktury.</errorMessage>
+</ValidationRule>

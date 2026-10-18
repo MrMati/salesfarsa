@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Shared_With__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lab 7.3: użytkownik otrzymujący odczyt tej faktury. Wyczyszczenie lub zmiana usuwa tylko udział Selected_User__c.</description>
+    <label>Udostępnij fakturę użytkownikowi</label>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Faktury udostępnione przez pole</relationshipLabel>
+    <relationshipName>Field_Shared_Invoices</relationshipName>
+    <type>Lookup</type>
+</CustomField>
